@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculadora</title>
+    <style>
+      :root {
+        --background-color: #1c1c1c;
+        --primary-color: #d37000;
+        --secondary-color: #505050;
+        --secondary-darker-color: #333333;
+        --text-primary: #d4d4d2;
+      }
+
+      * {
+        padding: 0;
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 1rem;
+        box-sizing: border-box;
+        user-select: none;
+      }
+
+      body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        background: url("https://wallpaperaccess.com/full/7134013.jpg")
+          no-repeat center center fixed;
+        background-size: cover;
+      }
+
+      button {
+        border: none;
+      }
+
+      #calculator-container {
+        background-color: var(--background-color);
+        border-radius: 0.4rem;
+        box-shadow: 0 0.2rem 2rem rgba(0, 0, 0, 0.65);
+        overflow: hidden;
+      }
+
+      .rounded-full {
+        border-radius: 50%;
+      }
+
+      #button-close {
+        background-color: #ff605c;
+      }
+
+      #button-minimize {
+        background-color: #ffbd44;
+      }
+
+      #button-maximize {
+        background-color: #00ca4e;
+      }
+
+      #top {
+        padding: 0.6rem;
+        height: min-content;
+      }
+
+      #top .rounded-full {
+        width: 1rem;
+        height: 1rem;
+        cursor: pointer;
+      }
+
+      #top .rounded-full:hover {
+        opacity: 0.6;
+      }
+
+      .buttons-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1px;
+      }
+
+      #result {
+        font-family: monospace;
+      }
+
+      #result-container {
+        color: var(--text-primary);
+        text-align: right;
+        padding: 0.8rem 1rem;
+      }
+
+      #result {
+        font-size: 2rem;
+      }
+
+      .buttons-container button {
+        background-color: var(--secondary-color);
+        padding: 0.8rem 1.2rem;
+        cursor: pointer;
+        font-size: 1.35rem;
+        color: var(--text-primary);
+      }
+
+      .buttons-container button:disabled {
+        filter: brightness(75%);
+        cursor: not-allowed;
+      }
+
+      .buttons-container button:hover:enabled {
+        filter: brightness(120%);
+      }
+
+      button.grid-cols-2 {
+        grid-column: span 2;
+      }
+
+      button.yellow {
+        background-color: var(--primary-color);
+      }
+
+      button.darker {
+        background-color: var(--secondary-darker-color);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="calculator-container">
+      <div id="top">
+        <button class="rounded-full" id="button-close"></button>
+        <button class="rounded-full" id="button-minimize"></button>
+        <button class="rounded-full" id="button-maximize"></button>
+      </div>
+      <div id="result-container">
+        <span id="result">0</span>
+      </div>
+      <div class="buttons-container">
+        <button class="button darker grid-cols-2" onclick="clean()">AC</button>
+        <button class="button darker" onclick="insert('%')">%</button>
+        <button class="button yellow" onclick="insert('/')">÷</button>
+        <button class="button" onclick="insert('7')">7</button>
+        <button class="button" onclick="insert('8')">8</button>
+        <button class="button" onclick="insert('9')">9</button>
+        <button class="button yellow" onclick="insert('*')">×</button>
+        <button class="button" onclick="insert('4')">4</button>
+        <button class="button" onclick="insert('5')">5</button>
+        <button class="button" onclick="insert('6')">6</button>
+        <button class="button yellow" onclick="insert('-')">-</button>
+        <button class="button" onclick="insert('1')">1</button>
+        <button class="button" onclick="insert('2')">2</button>
+        <button class="button" onclick="insert('3')">3</button>
+        <button class="button yellow" onclick="insert('+')">+</button>
+        <button class="button grid-cols-2" onclick="insert('0')">0</button>
+        <button class="button" onclick="insert('.')">.</button>
+        <button class="button yellow" onclick="calcular()">=</button>
+        <button class="normal darker grid-cols-2" onclick="insert('(')">
+          (
+        </button>
+        <button class="button darker grid-cols-2" onclick="insert(')')">
+          )
+        </button>
+      </div>
+    </div>
+  </body>
+  <script>
+    const resultElement = document.querySelector("#result")
+
+    function insert(num) {
+      var numero = resultElement.innerText
+      resultElement.innerText = numero + num
+    }
+
+    function clean() {
+      resultElement.innerText = "0"
+    }
+
+    function calcular() {
+      var resultado = resultElement.innerText
+
+      if (resultado) resultElement.innerText = eval(resultado)
+      else resultElement.innerText = "0"
+    }
+  </script>
+</html>
